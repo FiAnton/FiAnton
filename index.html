@@ -2,15 +2,35 @@
 <html>
     <head>
         <title>Тестовое задание</title>
-        
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+
         <link rel="stylesheet" type="text/css" href="css/main.css">
-        
-        <script src="js/main.js"></script>
+
     </head>
     <body>
-        <div>
-            <h1>Тестовое задание</h1>
-            <h1>Второй вариант с небольшими изменениями</h1>
+        <div class="wrapper">
+            <input id='new-event' value = "Добавить событие" type='button'>
+            <div class='event-list'>
+                <div id='events'></div>
+                <div id='time-picker'></div>
+            </div>
         </div>
+
+        <div class="form">
+            <form>
+                <div class='text-input-form'>Добавление нового пункта</div>
+                <div class="event-input-form">
+                    <input type="text" name='eName'>
+                    <input type="text" name='eTime'>
+                </div>
+                <div class="confitm-input-form">
+                    <input type="button" value="OK" text='Ок' name='ok'>
+                    <input type="button" value="Cancel" name='cancel'>
+                </div>
+            </form>
+        </div>
+            
     </body> 
+    <script src="js/main.js"></script>
 </html>
