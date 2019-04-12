@@ -64,7 +64,6 @@ createEvents(listOfEvents);
 function createEvents(listOfEvents){
     let event = document.querySelector("#events");
     let times = document.querySelector("#time-picker");
-    // let count = countOfTimeIntervals(timeOfEvents.start,timeOfEvents.end,timeOfEvents.interval);
     
     for(let i=0 ; i < Object.keys(listOfEvents).length; i++){
         event.innerHTML += `<div class='event'>
@@ -75,14 +74,17 @@ function createEvents(listOfEvents){
         </div>`;
     }
     
-    let hs = new eventTime("10:00","13:30", "15");
+    let hs = new eventTime(timeOfEvents.start,timeOfEvents.end, timeOfEvents.interval);
     for(let i=0 ; i < hs.diff().length; i++){
         times.innerHTML += `<div class='times'>${hs.diff()[i]}</div>`;
     }
 }
 
-(new slctIt(".times")).on('mousedown', function(){
-    this.classList.toggle("dark-back");
+(new slctIt(".times")).on('mousedown', function(){    
+    if(document.querySelector(".dark-back")){
+        document.querySelector(".dark-back").classList.remove("dark-back");
+    }
+    this.classList.add("dark-back");
 });
 
 
@@ -100,4 +102,8 @@ function createEvents(listOfEvents){
     this.style.top = "0px";
     this.style.left = "0px";
     document.querySelector(".form").style.display = "block";
+});
+
+(new slctIt(".back")).on('click', function(){
+    document.querySelector(".form").style.display = "none";
 });
