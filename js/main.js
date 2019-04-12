@@ -9,17 +9,50 @@ var listOfEvents = [
 
 var timeOfEvents = {
     start: "10:00",
-    end:"13:30",
+    end: "13:30",
     interval:"15"
 };
 
-class ${
+class eventTime{
+    constructor(stime,etime, interval){
+        this.sh = stime.split(':')[0];
+        this.sm = stime.split(':')[1];
+        this.eh = etime.split(':')[0];
+        this.em = etime.split(':')[1];
+        this.interval = interval;
+    }
+    diff(){
+        let tarr = [], i=0,
+            sh = Number.parseInt(this.sh),
+            eh = Number.parseInt(this.eh),
+            sm = Number.parseInt(this.sm),
+            em = Number.parseInt(this.em),
+            interval = Number.parseInt(this.interval);
+        while(sh<eh||sm<em)
+        {
+            sm=sm+interval;
+            if(sm>59)
+            {
+                sm=sm-60;
+                sh++;
+            };
+            if(sm>9)
+                tarr[i]=`${sh}:${sm}`;
+            else 
+                tarr[i]=`${sh}:0${sm}`;
+            i++;
+        };
+        return tarr;
+    }
+}
+
+class slctIt{
     constructor(selector){
         this.elems = document.querySelectorAll(selector);
     }
-
+    
     on(event, callback){
-        for(let i = 0; i < elems.length; i++){
+        for(let i = 0; i < this.elems.length; i++){
             this.elems[i].addEventListener(event, callback);
         }
         return this;
@@ -28,28 +61,43 @@ class ${
 
 createEvents(listOfEvents);
 
-function countOfTimeIntervals(timeS, timeE, interval){
-    let hs = Number.parseInt(timeS.split(':')[0]);
-    let he = Number.parseInt(timeE.split(':')[0]);
-    let ms = Number.parseInt(timeS.split(':')[1]);
-    let me = Number.parseInt(timeE.split(':')[1]);
-    return (((he-hs)*60 + me - ms)/interval); 
-}
-
 function createEvents(listOfEvents){
     let event = document.querySelector("#events");
     let times = document.querySelector("#time-picker");
-    let count = countOfTimeIntervals(timeOfEvents.start,timeOfEvents.end,timeOfEvents.interval);
+    // let count = countOfTimeIntervals(timeOfEvents.start,timeOfEvents.end,timeOfEvents.interval);
     
     for(let i=0 ; i < Object.keys(listOfEvents).length; i++){
-        event.innerHTML += `<div class='event'><input type="radio">
-                                <div class="etime">${listOfEvents[i][0]}</div>
-                                <div class="ename">${listOfEvents[i][1]}</div>
-                                <div class="x"></div>
-                            </div>`;
+        event.innerHTML += `<div class='event'>
+        <input type="checkbox">
+        <div class="etime">${listOfEvents[i][0]}</div>
+        <div class="ename">${listOfEvents[i][1]}</div>
+        <div class="x"></div>
+        </div>`;
     }
     
-    for(let i=0 ; i < count; i++){
-        times.innerHTML += `<div class='times'></div>`;
+    let hs = new eventTime("10:00","13:30", "15");
+    for(let i=0 ; i < hs.diff().length; i++){
+        times.innerHTML += `<div class='times'>${hs.diff()[i]}</div>`;
     }
 }
+
+(new slctIt(".times")).on('mousedown', function(){
+    this.classList.toggle("dark-back");
+});
+
+
+(new slctIt(".x")).on('mousedown', function(){
+    this.style.backgroundPosition = "1px 9px";
+}).on('mouseup', function(){
+    this.style.backgroundPosition = "0px 8px";
+    this.parentNode.remove(".event");
+});
+
+(new slctIt("#new-event")).on('mousedown', function(){
+    this.style.top = "1px";
+    this.style.left = "1px";
+}).on('mouseup', function(){
+    this.style.top = "0px";
+    this.style.left = "0px";
+    document.querySelector(".form").style.display = "block";
+});

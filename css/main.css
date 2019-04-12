@@ -6,21 +6,29 @@ body{
 }
 div{
     box-sizing: border-box;
+    cursor: default;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
 }
 
 .wrapper{
     height: 100vh;
-    margin: 0 auto;
+    margin: 3% auto;
     max-width: 1100px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 }
 
 #new-event{
     width: 20%;
-    height: 5%;
+    border-radius: 2px;
+    position: relative;
+    text-align: center;
+    padding: 1%;
+    background-color: aliceblue;  
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5)
 }
 
@@ -59,7 +67,8 @@ div{
 #events .x{
     margin: 0;
     width: 3%;
-    background: url("/New/img/cross.png") no-repeat center center;
+    background: url("/New/img/cross.png") no-repeat 0 8px;
+     
 }
 
 #events .event input{
@@ -70,15 +79,20 @@ div{
 
 
 #time-picker{
-    background-color: blueviolet;
-    padding:2%;
+    padding:0 2%;
 }
 
 #time-picker .times{
     width:18%;
     min-height:20px;    
     float:left;
-    background-color: chartreuse;
+    text-align: center;
+    border-radius: 2px;
+    background-color: rgb(255, 255, 255);
+}
+.dark-back
+{
+    background-color: rgb(143, 143, 143) !important;
 }
 
 /*------------------------------------------------------------------------------*/
